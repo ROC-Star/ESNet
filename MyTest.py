@@ -5,7 +5,6 @@
 """
 import os
 import time
-
 import cv2
 import torch
 import argparse
@@ -13,14 +12,9 @@ import numpy as np
 
 import torch.nn.functional as F
 import torch.backends.cudnn as cudnn
-
 from utils.dataset import test_dataset as EvalDataset
-
 from lib.ESNet import ESNet
 
-
-
-# from lib_pvtv2.PoNet_efficient import PoNet
 
 class AverageMeter(object):
     def __init__(self):
@@ -39,7 +33,7 @@ class AverageMeter(object):
         self.avg = self.sum / self.count
 
 
-def evaluator(model, val_root, gradient_map_path, map_save_path, trainsize=352):
+def evaluator(model, val_root, map_save_path, trainsize=352):
     val_loader = EvalDataset(image_root=val_root + 'Imgs/',
                              gt_root=val_root + 'GT/',
                              testsize=trainsize)
@@ -67,7 +61,6 @@ def evaluator(model, val_root, gradient_map_path, map_save_path, trainsize=352):
             pt = F.upsample(e, size=gt.shape, mode='bilinear', align_corners=False)
             pt = pt.sigmoid().data.cpu().numpy().squeeze()
             pt = (pt - pt.min()) / (pt.max() - pt.min() + 1e-8)
-            cv2.imwrite(gradient_map_path + name, pt * 255)
 
             cv2.imwrite(map_save_path + name, output * 255)
             print('>>> saving prediction at: {}'.format(map_save_path + name))
@@ -107,19 +100,15 @@ if __name__ == '__main__':
 
     cudnn.benchmark = True
     model = ESNet().cuda()
-
     model.load_state_dict(torch.load(opt.snap_path))
     model.eval()
     # 'CAMO', 'COD10K', 'NC4K', 'CHAMELEON'
     for data_name in ['CAMO', 'COD10K', 'NC4K', 'CHAMELEON']:
         map_save_path = txt_save_path + "{}/".format(data_name)
-        gradient_map = txt_save_path + 'gradient/' + "{}/".format(data_name)
         os.makedirs(map_save_path, exist_ok=True)
-        os.makedirs(gradient_map, exist_ok=True)
         evaluator(
             model=model,
             val_root='/media/omnisky/data/Datasets/COD/TestDataset/' + data_name + '/',
             map_save_path=map_save_path,
             trainsize=opt.test_size,
-            gradient_map_path=gradient_map
         )
