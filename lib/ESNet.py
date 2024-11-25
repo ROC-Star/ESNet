@@ -1,7 +1,6 @@
 import timm
 import torch
 import torch.nn as nn
-from ptflops import get_model_complexity_info
 from thop import profile, clever_format
 import torch.nn.functional as F
 
@@ -69,7 +68,7 @@ class ESNet(nn.Module):
 
 if __name__ == '__main__':
     net = ESNet().eval()
-    inputs = torch.randn(1, 3, 352, 352)
+    inputs = torch.randn(1, 3, 384, 384)
     outs = net(inputs)
     print(outs[0].shape)
 
