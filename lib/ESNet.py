@@ -20,7 +20,7 @@ class ESNet(nn.Module):
         pretrained_dict = torch.load('/media/omnisky/data/rp/COD_TILNet/pre/tf_efficientnet_b3_ns-9d44bf68.pth')
         pretrained_dict = {k: v for k, v in pretrained_dict.items() if k in self.context_encoder.state_dict()}
         self.context_encoder.load_state_dict(pretrained_dict)
-        self.context_encoder = smt_t(pretrained=True)
+        # self.context_encoder = smt_t(pretrained=True)
         in_channel_list = [48, 136, 384]
 
         self.skeleton_encoder = SkeletonEncoder()
