@@ -9,7 +9,6 @@
 import os
 import cv2
 import numpy as np
-
 from skimage import morphology
 from tqdm import tqdm
 
@@ -24,11 +23,8 @@ def read_path(path, skelete_path, edge_path):
         imgBin[imgBin == 255] = 1
         skeleton01 = morphology.skeletonize(imgBin)
         skeleton = skeleton01.astype(np.uint8) * 255
-
-        #
         kernel = np.ones((2, 2), np.uint8)
         dilated_skeleton = cv2.dilate(skeleton, kernel, iterations=1)
-
         after = dilated_skeleton + np.array(edge)
         cv2.imwrite(skelete_path + '/' + filename, after)
     print('>>>>>>>>>>>>Finsh！>>>>>>>>>>>>>>>')
@@ -40,5 +36,4 @@ if __name__ == '__main__':
     edge_path = '/media/omnisky/data/Datasets/COD/TrainDataset/Edge'
     if not os.path.exists(after):
         os.makedirs(after)
-
     read_path(ori, after, edge_path)
