@@ -1,4 +1,4 @@
 # ESINet
-We will update the code after the paper is accepted.
+ESNet: An Efficient Skeleton-guided Network for Camouflaged Object Detection
 # Notes
-We first provide the [results maps](https://drive.google.com/file/d/1UN8shVDmw4-PoMzNJKMn-VL0fqaHqsf4/view?usp=drive_link), and the code will be uploaded after the paper is accepted.
+We provide the [skeleton labels](https://drive.google.com/file/d/1u8vDi0aiath_UNLc4yLRMOnkdr6c6TNv/view?usp=sharing), and provides ./utils/gt2skeletal.py to generate Skeleton Lebal.
