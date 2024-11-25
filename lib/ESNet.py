@@ -13,7 +13,6 @@ class ESNet(nn.Module):
         super(ESNet, self).__init__()
 
         print('--> using efficientnet-b3 right now')
-
         self.context_encoder = timm.create_model(model_name='tf_efficientnet_b3.ns_jft_in1k', features_only=True,
                                                  pretrained=False, out_indices=range(0, 5))
         pretrained_dict = torch.load('/media/omnisky/data/rp/COD_TILNet/pre/tf_efficientnet_b3_ns-9d44bf68.pth')

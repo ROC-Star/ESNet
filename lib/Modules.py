@@ -98,9 +98,9 @@ def _make_divisible(v, divisor, min_value=None):
     return new_v
 
 
-class SGBlock(nn.Module):
+class BasicBlock(nn.Module):
     def __init__(self, inp, oup, stride, expand_ratio, keep_3x3=False):
-        super(SGBlock, self).__init__()
+        super(BasicBlock, self).__init__()
         assert stride in [1, 2]
 
         hidden_dim = inp // expand_ratio
@@ -228,10 +228,10 @@ class DimensionalReduction(nn.Module):
 class SkeletonEncoder(nn.Module):
     def __init__(self):
         super(SkeletonEncoder, self).__init__()
-        self.conv1 = _make_layer(SGBlock, 3, 64, blocks=1, t=3, stride=2)
-        self.conv2 = _make_layer(SGBlock, 64, 64, blocks=2, t=2, stride=2)
+        self.conv1 = _make_layer(BasicBlock, 3, 64, blocks=1, t=3, stride=2)
+        self.conv2 = _make_layer(BasicBlock, 64, 64, blocks=2, t=2, stride=2)
         self.sc1 = ScConv(64)
-        self.conv3 = _make_layer(SGBlock, 64, 32, blocks=2, t=2, stride=2)
+        self.conv3 = _make_layer(BasicBlock, 64, 32, blocks=2, t=2, stride=2)
         self.sc2 = ScConv(32)
 
         self.conv_out = nn.Conv2d(32, 1, kernel_size=1, stride=1, padding=0)
