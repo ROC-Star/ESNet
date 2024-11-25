@@ -17,9 +17,9 @@ def read_path(path, skelete_path, edge_path):
     name_list = sorted(os.listdir(path))
     for filename in tqdm(name_list, total=len(os.listdir(path))):
         # print(filename)
-        imgGray = cv2.imread(path + '/' + filename, flags=0)  # flags=0 灰度图像
-        edge = cv2.imread(edge_path + '/' + filename, flags=0)  # flags=0 灰度图像
-        ret, imgBin = cv2.threshold(imgGray, 100, 255, cv2.THRESH_BINARY)  # 二值化处理
+        imgGray = cv2.imread(path + '/' + filename, flags=0)
+        edge = cv2.imread(edge_path + '/' + filename, flags=0)
+        ret, imgBin = cv2.threshold(imgGray, 100, 255, cv2.THRESH_BINARY)
         imgBin[imgBin == 255] = 1
         skeleton01 = morphology.skeletonize(imgBin)
         skeleton = skeleton01.astype(np.uint8) * 255
