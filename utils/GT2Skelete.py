@@ -10,7 +10,6 @@ import os
 import cv2
 import numpy as np
 
-# # 10.17 形态算法之骨架 (skimage.morphology.skeletonize)
 from skimage import morphology
 from tqdm import tqdm
 
@@ -27,15 +26,12 @@ def read_path(path, skelete_path, edge_path):
         skeleton = skeleton01.astype(np.uint8) * 255
 
         #
-        kernel = np.ones((2,2),np.uint8)
-        dilated_skeleton  = cv2.dilate(skeleton,kernel,iterations=1)
-
+        kernel = np.ones((2, 2), np.uint8)
+        dilated_skeleton = cv2.dilate(skeleton, kernel, iterations=1)
 
         after = dilated_skeleton + np.array(edge)
         cv2.imwrite(skelete_path + '/' + filename, after)
     print('>>>>>>>>>>>>Finsh！>>>>>>>>>>>>>>>')
-
-
 
 
 if __name__ == '__main__':
