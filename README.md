@@ -4,7 +4,6 @@ Our work has been accepted at KBS.
 ## Framework Overview
 <img width="1044" height="521" alt="image" src="https://github.com/user-attachments/assets/0d078497-5716-4d0a-bebc-72b27855a032" />
 
-
 ## Notes
 We provide the [skeleton labels](https://drive.google.com/file/d/1u8vDi0aiath_UNLc4yLRMOnkdr6c6TNv/view?usp=sharing), and provides ./utils/gt2skeletal.py to generate skeleton labels.
 
